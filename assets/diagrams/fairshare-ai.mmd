@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant User
+    participant App as React App
+    participant Server as Node.js Server
+    participant OCR as Google Vision API
+    participant Socket as WebSocket
+    
+    User->>App: Upload Receipt Image
+    App->>Server: POST /upload
+    Server->>OCR: Send Image
+    OCR-->>Server: Return Extracted Text
+    Server->>Server: Parse Items & Prices
+    Server-->>App: Return Bill Data
+    User->>App: Create Session
+    App->>Socket: Join Room
+    loop Real-time Updates
+        User->>App: Claim Item
+        App->>Socket: Emit "claim" event
+        Socket->>OtherUsers: Broadcast Update
+    end

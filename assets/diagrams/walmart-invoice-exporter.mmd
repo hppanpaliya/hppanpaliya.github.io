@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant User
+    participant Popup as Extension Popup
+    participant Script as Content Script
+    participant Walmart as Walmart Page
+    participant XLSX as XLSX Library
+    
+    User->>Popup: Click Export Button
+    Popup->>Script: Send "scrape" message
+    activate Script
+    Script->>Walmart: Query DOM for Orders
+    Walmart-->>Script: Return HTML Elements
+    Script->>Script: Parse Data (Date, Items, Price)
+    Script->>XLSX: Generate Excel File
+    XLSX-->>Script: Binary Data
+    Script-->>User: Trigger Download
+    deactivate Script

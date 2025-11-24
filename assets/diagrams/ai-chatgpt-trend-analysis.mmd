@@ -1,0 +1,30 @@
+graph TD
+    subgraph Data_Sources
+        Reddit[Reddit API]
+        FourChan[4chan API]
+    end
+    
+    subgraph Ingestion
+        Airflow[Apache Airflow DAGs]
+        S3[(AWS S3 Data Lake)]
+    end
+    
+    subgraph Processing
+        Spark[Apache Spark Cluster]
+        NLP[spaCy Sentiment Analysis]
+    end
+    
+    subgraph Storage_Serving
+        Postgres[(PostgreSQL)]
+        API[Flask API]
+        Dash[Dashboard]
+    end
+    
+    Reddit -->|Fetch JSON| Airflow
+    FourChan -->|Fetch JSON| Airflow
+    Airflow -->|Raw Data Dump| S3
+    S3 -->|Stream/Batch Read| Spark
+    Spark -->|Process Text| NLP
+    NLP -->|Aggregated Results| Postgres
+    Postgres -->|Query Data| API
+    API -->|Visualize| Dash

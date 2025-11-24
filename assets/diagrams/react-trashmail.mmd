@@ -1,0 +1,22 @@
+graph TD
+    subgraph Client
+        UI[React Frontend]
+    end
+    subgraph Server
+        NGINX[Nginx Reverse Proxy]
+        API[Node.js/Express API]
+        WS[WebSocket Service]
+        IMAP[IMAP Listener]
+    end
+    subgraph Database
+        DB[(MongoDB)]
+    end
+    
+    UI -->|HTTP Requests| NGINX
+    UI -->|WebSocket Connection| NGINX
+    NGINX --> API
+    NGINX --> WS
+    API --> DB
+    IMAP -->|New Email Event| WS
+    WS -->|Push Notification| UI
+    IMAP -.->|Polls/Listens| MailServer[External Mail Server]

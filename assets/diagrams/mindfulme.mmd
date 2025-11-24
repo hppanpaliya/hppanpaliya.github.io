@@ -1,0 +1,21 @@
+graph LR
+    User((User))
+    
+    subgraph Frontend
+        App[React App]
+        Context[Auth Context]
+    end
+    
+    subgraph Backend_Services
+        Auth[Firebase Auth]
+        DB[(Firestore)]
+        AI[AI Chatbot API]
+    end
+    
+    User --> App
+    App --> Context
+    Context --> Auth
+    App -->|Read/Write Journal| DB
+    App -->|Real-time Chat| DB
+    App -->|Chat Request| AI
+    AI -->|Response| App
