@@ -1,0 +1,13 @@
+graph TD
+    User[User]
+    UI[React Game UI]
+    State[Game State]
+    Audio[Audio API]
+    Storage[Web Storage]
+
+    User --> UI
+    UI --> State
+    State --> UI
+    UI --> Audio
+    UI --> Storage
+    Storage -->|High Scores| UI

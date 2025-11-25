@@ -1,0 +1,15 @@
+graph TD
+    User[User]
+    UI[React + Redux]
+    API[Express API]
+    Redis[Redis Cache]
+    Spotify[Spotify API]
+    Ticketmaster[Ticketmaster API]
+    Firebase[Firebase]
+
+    User --> UI
+    UI --> API
+    API --> Redis
+    API --> Spotify
+    API --> Ticketmaster
+    UI --> Firebase

@@ -1,0 +1,12 @@
+graph TD
+    User[User]
+    UI[React Frontend]
+    PDF[PDF.js]
+    HTML[Static HTML]
+    Firestore[Firestore/Storage]
+
+    User --> UI
+    UI -->|Upload PDF| PDF
+    PDF -->|Parse| HTML
+    HTML -->|Save| Firestore
+    UI -->|Display| HTML

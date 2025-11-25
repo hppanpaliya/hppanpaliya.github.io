@@ -1,0 +1,13 @@
+graph TD
+    User[User]
+    UI[React Canvas UI]
+    Store[Drawing State Store]
+    Canvas[HTML5 Canvas]
+    Export[Export Module]
+
+    User --> UI
+    UI --> Canvas
+    UI --> Store
+    Store --> Canvas
+    UI --> Export
+    Export -->|PNG/JPEG| User

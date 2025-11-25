@@ -1,0 +1,10 @@
+graph TD
+    User[User]
+    Script[Python Script]
+    Telethon[Telethon Library]
+    Telegram[Telegram API]
+
+    Script --> Telethon
+    Telethon --> Telegram
+    Telegram -->|Group Messages| Script
+    Script -->|Filter & Forward| User

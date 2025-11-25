@@ -1,0 +1,11 @@
+graph TD
+    User[User]
+    UI[React Frontend]
+    ExcelJS[ExcelJS Library]
+    Download[Download]
+
+    User --> UI
+    UI -->|Upload XLSX Files| ExcelJS
+    ExcelJS -->|Merge & Create Workbook| UI
+    UI --> Download
+    Download -->|Merged XLSX| User

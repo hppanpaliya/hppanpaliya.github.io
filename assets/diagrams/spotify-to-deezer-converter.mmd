@@ -1,0 +1,12 @@
+graph TD
+    User[User]
+    UI[Web UI]
+    Spotify[Spotify oEmbed API]
+    Deezer[Deezer API]
+
+    User --> UI
+    UI -->|Input Spotify URL| Spotify
+    Spotify -->|Metadata| UI
+    UI -->|Search Deezer| Deezer
+    Deezer -->|Result| UI
+    UI -->|Display Deezer Link| User

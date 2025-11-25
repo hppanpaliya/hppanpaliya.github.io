@@ -1,0 +1,39 @@
+graph TD
+  subgraph Frontend [React App]
+    ResumeBuilder[Resume Builder/Editor]
+    ResumeUpload[Resume Upload PDF/DOCX]
+    JobDescInput[Job Description Input]
+    AnalysisView[Analysis Results & Feedback]
+    AuthUI[Login/Register/Profile]
+  end
+
+  subgraph Backend [Express.js API]
+    AuthAPI[Auth API JWT]
+    ResumeAPI[Resume CRUD API]
+    FileParse[File Parsing pdf-parse, mammoth]
+    AIAPI[AI Analysis API]
+    JobDescAPI[Job Description CRUD]
+    ExportAPI[Export PDF DOCX]
+    DB[PostgreSQL]
+    Cache[Redis]
+  end
+
+  subgraph AIProvider [OpenAI/Gemini]
+    AIModel[AI Model OpenRouter]
+  end
+
+  ResumeBuilder --> ResumeAPI
+  ResumeUpload --> FileParse
+  FileParse --> ResumeAPI
+  JobDescInput --> JobDescAPI
+  ResumeAPI --> DB
+  ResumeAPI --> Cache
+  AuthUI --> AuthAPI
+  AuthAPI --> DB
+  AnalysisView --> AIAPI
+  AIAPI --> AIModel
+  AIModel --> AIAPI
+  AIAPI --> AnalysisView
+  ExportAPI --> ResumeAPI
+  ResumeAPI --> ExportAPI
+  ExportAPI --> DB
