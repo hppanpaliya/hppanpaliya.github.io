@@ -2,44 +2,80 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#0f172a" />
     <meta
       name="description"
-      content="Harshal Panpaliya's Portfolio - A showcase of my work and skills in web development."
+      content="Harshal Panpaliya - Full-Stack Software Engineer Portfolio showcasing projects, experience, and skills in web development."
     />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Harshal Panpaliya</title>
-    <script type="module" crossorigin src="/assets/index-BBAdwiuq.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DFMl3nwb.css">
+    <!-- Preconnect to external domains for faster resource loading -->
+    <link rel="preconnect" href="https://api.github.com" crossorigin />
+    <link rel="preconnect" href="https://opengraph.githubassets.com" crossorigin />
+    <link rel="dns-prefetch" href="https://api.github.com" />
+    <link rel="dns-prefetch" href="https://opengraph.githubassets.com" />
+
+    <!-- Critical resources -->
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Inline critical CSS for faster FCP -->
+    <style>
+      /* Critical CSS - Prevents FOUC and improves FCP */
+      *,*::before,*::after{box-sizing:border-box}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+      body{margin:0;background-color:#0f172a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+      /* Hero section - render actual content immediately */
+      .hero-initial{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem}
+      .hero-initial h1{font-size:clamp(2rem,5vw,4rem);font-weight:800;color:#fff;line-height:1.2;margin:0 0 1rem}
+      .hero-initial h1 span{color:#22d3ee}
+      .hero-initial p{font-size:clamp(1rem,2vw,1.25rem);color:#e2e8f0;max-width:48rem;margin:0 auto 2rem}
+      .hero-initial .btns{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+      .hero-initial .btn{padding:0.75rem 2rem;border-radius:9999px;font-weight:600;text-decoration:none;transition:transform 0.2s}
+      .hero-initial .btn-primary{background:linear-gradient(to right,#06b6d4,#2563eb);color:#fff}
+      .hero-initial .btn-secondary{border:2px solid #22d3ee;color:#22d3ee;background:transparent}
+    </style>
+
+    <title>Harshal Panpaliya | Full-Stack Software Engineer</title>
+    <script type="module" crossorigin src="/assets/index-UlVUAUCw.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-vendor-B_uAldPx.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-CWXrgV8Z.js">
+    <link rel="modulepreload" crossorigin href="/assets/icons-DCZhjF_Q.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BRZhyHs9.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root">
+      <!-- Server-rendered hero content for instant FCP/LCP -->
+      <div class="hero-initial" id="hero-ssr">
+        <div>
+          <h1>Hi, I'm <span>Harshal Panpaliya</span>.</h1>
+          <p>I am a Full-Stack Software Engineer specializing in building exceptional, high-performance digital experiences.</p>
+          <div class="btns">
+            <a href="#projects" class="btn btn-primary">View My Projects</a>
+            <a href="/Harshal_Panpaliya_Resume.pdf" class="btn btn-secondary" target="_blank" rel="noopener">Download Resume</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      // Remove SSR content once React hydrates
+      window.addEventListener('DOMContentLoaded', function() {
+        var ssr = document.getElementById('hero-ssr');
+        if (ssr) {
+          var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.addedNodes.length > 0) {
+                ssr.style.display = 'none';
+                observer.disconnect();
+              }
+            });
+          });
+          observer.observe(document.getElementById('root'), { childList: true });
+        }
+      });
+    </script>
   </body>
 </html>
