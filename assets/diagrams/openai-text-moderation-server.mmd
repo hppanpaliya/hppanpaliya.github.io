@@ -1,0 +1,31 @@
+graph TD
+    subgraph Client
+        App[Client Application]
+    end
+    
+    subgraph Server[Express.js Server]
+        API[REST API]
+        ModCtrl[Moderation Controller]
+        ChatCtrl[Chatbot Controller]
+        Monitor[Chat Monitor]
+        EmailSvc[Email Service]
+    end
+    
+    subgraph External[External Services]
+        OpenAI[OpenAI API]
+        Firebase[(Firebase/Firestore)]
+        SendGrid[SendGrid Email]
+    end
+    
+    App -->|POST /moderation| API
+    App -->|POST /chatbot| API
+    API --> ModCtrl
+    API --> ChatCtrl
+    ModCtrl --> OpenAI
+    ChatCtrl --> OpenAI
+    ChatCtrl -->|Track Usage| Firebase
+    Monitor -->|Listen for Chats| Firebase
+    Monitor --> ModCtrl
+    Monitor -->|Self-Harm Detected| EmailSvc
+    EmailSvc --> SendGrid
+    SendGrid -->|Alert Email| User[User Email]
