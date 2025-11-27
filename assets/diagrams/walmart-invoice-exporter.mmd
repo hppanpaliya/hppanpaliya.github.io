@@ -1,0 +1,30 @@
+graph TD
+    subgraph Browser[Chrome Browser]
+        Popup[Popup UI]
+        BG[Background Service Worker]
+        CS[Content Script]
+        Storage[(Chrome Storage)]
+    end
+    
+    subgraph Walmart[Walmart.com]
+        Orders[Order History Pages]
+        OrderAPI[Order Data]
+    end
+    
+    subgraph Output[Export]
+        Excel[ExcelJS Generator]
+        XLSX[XLSX Files]
+    end
+    
+    Popup -->|Start Collection| BG
+    BG -->|Open Tab & Inject| CS
+    CS -->|Extract Orders| Orders
+    Orders -->|Order Numbers| CS
+    CS -->|Send Data| BG
+    BG -->|Cache Orders| Storage
+    Popup -->|Download Request| BG
+    BG -->|Fetch Invoice| OrderAPI
+    OrderAPI -->|Invoice Data| BG
+    BG -->|Cache Invoice| Storage
+    BG -->|Generate| Excel
+    Excel -->|Download| XLSX
