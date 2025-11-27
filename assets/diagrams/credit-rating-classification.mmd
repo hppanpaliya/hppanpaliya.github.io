@@ -1,0 +1,51 @@
+graph TD
+    subgraph Data[ICE Bond Data]
+        Raw[Raw CSV ~1800 bonds]
+        Features[138 Features]
+    end
+    
+    subgraph Preprocessing
+        Clean[Data Cleaning]
+        Select[Feature Selection]
+        Extract[PCA Dimensionality Reduction]
+        Scale[MinMax Scaling]
+    end
+    
+    subgraph Models[Classification Models]
+        Basic[Basic Models]
+        Advanced[Advanced Models]
+        NB[Naive Bayes]
+        KNN[K-Nearest Neighbors]
+        CART[Decision Tree]
+        LR[Logistic Regression]
+        NN[Neural Network MLP]
+        XGB[XGBoost Classifier]
+    end
+    
+    subgraph Evaluation
+        Metrics[Accuracy, Precision, Recall]
+        CM[Confusion Matrix]
+        Report[Classification Report]
+    end
+    
+    Raw --> Clean
+    Features --> Select
+    Clean --> Select
+    Select --> Extract
+    Extract --> Scale
+    Scale --> Basic
+    Scale --> Advanced
+    Basic --> NB
+    Basic --> KNN
+    Basic --> CART
+    Advanced --> LR
+    Advanced --> NN
+    Advanced --> XGB
+    NB --> Metrics
+    KNN --> Metrics
+    CART --> Metrics
+    LR --> Metrics
+    NN --> Metrics
+    XGB --> Metrics
+    Metrics --> CM
+    Metrics --> Report

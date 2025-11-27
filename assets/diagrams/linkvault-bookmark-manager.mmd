@@ -1,0 +1,29 @@
+graph TD
+    subgraph Client[Next.js Frontend]
+        UI[React Components]
+        Theme[Theme Provider]
+        SSE[SSE Client Hook]
+        Auth[NextAuth Session]
+    end
+    
+    subgraph Server[Next.js API Routes]
+        AuthAPI[NextAuth API]
+        BookmarkAPI[Bookmark CRUD API]
+        CategoryAPI[Category API]
+        EventsAPI[SSE Events Route]
+    end
+    
+    subgraph Database[SQLite]
+        DB[(better-sqlite3)]
+    end
+    
+    UI -->|Theme Toggle| Theme
+    UI -->|Auth State| Auth
+    Auth -->|Login/Logout| AuthAPI
+    UI -->|CRUD Operations| BookmarkAPI
+    UI -->|Category Ops| CategoryAPI
+    SSE -->|Subscribe| EventsAPI
+    EventsAPI -->|Broadcast Changes| SSE
+    BookmarkAPI --> DB
+    CategoryAPI --> DB
+    AuthAPI -->|Session Store| DB

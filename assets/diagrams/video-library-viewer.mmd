@@ -1,0 +1,36 @@
+graph TD
+    subgraph Client[Next.js Frontend]
+        UI[React Components]
+        FolderView[Folder Browser]
+        VideoPlayer[Video Player]
+        FileViewer[File Viewer]
+        SyntaxHL[Syntax Highlighter]
+    end
+    
+    subgraph Middleware
+        AuthMW[Auth Middleware]
+        JWT[JWT Validation]
+    end
+    
+    subgraph Server[Next.js API Routes]
+        AuthAPI[Auth API Login/Register]
+        VideoAPI[Video Streaming API]
+        FileAPI[File Content API]
+    end
+    
+    subgraph Storage
+        DB[(SQLite Users DB)]
+        FS[File System Videos]
+    end
+    
+    UI --> AuthMW
+    AuthMW --> JWT
+    JWT -->|Valid| FolderView
+    JWT -->|Invalid| Login[Login Page]
+    FolderView --> FileAPI
+    VideoPlayer -->|Range Requests| VideoAPI
+    FileViewer --> FileAPI
+    FileViewer --> SyntaxHL
+    AuthAPI --> DB
+    VideoAPI --> FS
+    FileAPI --> FS
